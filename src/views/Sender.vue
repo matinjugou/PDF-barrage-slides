@@ -30,7 +30,7 @@ export default {
       const formData = new FormData();
       formData.append('message', this.message);
       formData.append('channel', 'slides3');
-      this.$axios.post('http://127.0.0.1:5000/send', formData).then(() => {
+      this.$axios.post('https://slides.magichc7.com/barrage-api/send', formData).then(() => {
         this.message = '';
         this.$message({
           type: 'success',

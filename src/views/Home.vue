@@ -79,7 +79,7 @@ export default {
       }
     },
     playBarrage() {
-      this.$axios.get('http://127.0.0.1:5000/get', {
+      this.$axios.get('https://slides.magichc7.com/barrage-api/get', {
         params: {
           channel: 'slides3',
           index: this.index,
