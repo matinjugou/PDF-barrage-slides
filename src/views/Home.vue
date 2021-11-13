@@ -53,9 +53,15 @@ export default {
       } else if (e.code === 'KeyL') {
         // 按下L
         this.lastBarrage();
+      } else if (e.code === 'KeyC') {
+        // 按下C
+        this.cleanBarrage();
       } else if (e.code === 'KeyP') {
         // 按下空格
         this.switchPause();
+      } else if (e.code === 'KeyR') {
+        // 按下R
+        this.index = 0;
       }
     };
     setInterval(this.playBarrage, 2000);
@@ -90,6 +96,18 @@ export default {
           this.arr.push(item);
         });
         this.index += res.data.length;
+      });
+    },
+    cleanBarrage() {
+      const formData = new FormData();
+      formData.append('channel', 'slides3');
+      this.$axios.post('https://slides.magichc7.com/barrage-api/clean', formData).then(() => {
+        this.message = '';
+        this.$message({
+          type: 'success',
+          message: '弹幕已清空',
+        });
+        this.arr = [];
       });
     },
     switchPause() {
