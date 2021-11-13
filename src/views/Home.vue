@@ -2,7 +2,11 @@
   <div
     style="position: relative;width: 100%;height: 100%;"
   >
-    <div style="z-index: 1;position:absolute;width: 100%;height: 100%;">
+    <div
+      style="z-index: 1;position:absolute;width: 100%;top: 50%;
+    left:50%;
+    transform: translate(-50% , -50%);"
+    >
       <pdf
         :src="url"
         :page="pageNum"
@@ -16,7 +20,9 @@
       :speeds="170"
       :random-channel="true"
       extra-style="color: black"
-      style="z-index: 2;position:absolute;width: 100%;height: 50%;top:20px"
+      style="z-index: 2;position:absolute;width: 100%;height:50%;top: 50%;
+    left:50%;
+    transform: translate(-50% , -50%);"
     />
   </div>
 </template>
@@ -33,12 +39,13 @@ export default {
   },
   data() {
     return {
-      url: './pdf/share.pdf',
+      url: 'https://slides-cdn.magichc7.com/3/share.pdf',
       pageNum: 1,
       numPages: 1,
       paused: false,
       arr: [],
       index: 0,
+      timer: null,
     };
   },
   mounted() {
@@ -64,7 +71,11 @@ export default {
         this.index = 0;
       }
     };
-    setInterval(this.playBarrage, 2000);
+    this.timer = setInterval(this.playBarrage, 2000);
+  },
+  destroyed() {
+    document.onkeydown = null;
+    clearInterval(this.timer);
   },
   methods: {
     prePage() {
