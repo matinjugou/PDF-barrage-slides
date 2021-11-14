@@ -31,8 +31,13 @@
         >{{ danmu.message }}</span>
       </template>
     </vue-danmaku>
-    <div style="z-index: 3;position:absolute;width: 100%;bottom: 20px">
-      <span>当前演讲人是：{{ author }}，请访问：<a
+    <div
+      style="z-index: 3;position:absolute;width: 80%;bottom: 20px; left:50%;
+    transform: translate(-50% , 0);"
+    >
+      <span style="float:left">弹幕播放状态：<span :style="`${ paused ? 'color:red':'color:green' }`">
+        {{ paused ? "已暂停":"正常播放" }}</span>&nbsp;&nbsp;&nbsp;</span>
+      <span style="float:right">当前演讲人是：{{ author }}，请访问：<a
         target="_blank"
         :href="`https://slides-cdn.magichc7.com/v3/#/sender/${author}`"
       >
