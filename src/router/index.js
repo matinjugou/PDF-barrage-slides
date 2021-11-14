@@ -6,19 +6,19 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '/show/:name',
     name: 'Home',
     component: Home,
   },
   {
-    path: '/sender',
+    path: '/sender/:name',
     name: 'Sender',
     component: () => import(/* webpackChunkName: "sender" */ '../views/Sender.vue'),
   },
 ];
 
 const router = new VueRouter({
-  base: '/3',
+  base: '/v3',
   routes,
 });
 

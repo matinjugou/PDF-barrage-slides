@@ -16,14 +16,24 @@
     <vue-danmaku
       ref="danmaku"
       :danmus="arr"
-      :font-size="30"
+      use-slot
       :speeds="170"
       :random-channel="true"
-      extra-style="color: black"
-      style="z-index: 2;position:absolute;width: 100%;height:80%;top: 50%;
-    left:50%;
-    transform: translate(-50% , -50%);"
-    />
+      style="z-index: 2;position:absolute;width: 100%;height:100%;"
+    >
+      <template
+        slot="dm"
+        slot-scope="{ danmuindex, danmu }"
+      >
+        <span
+          :key="danmuindex"
+          :style="`color: ${danmu.color};font-size: 30px`"
+        >{{ danmu.message }}</span>
+      </template>
+    </vue-danmaku>
+    <div style="z-index: 3;position:absolute;width: 100%;bottom: 20px">
+      <span>当前演讲人是：{{ author }}，请访问：https://slides-cdn.magichc7.com/v3/#/sender/{{ author }}发送弹幕</span>
+    </div>
   </div>
 </template>
 
@@ -39,7 +49,8 @@ export default {
   },
   data() {
     return {
-      url: 'https://slides-cdn.magichc7.com/3/share.pdf',
+      author: '',
+      url: '',
       pageNum: 1,
       numPages: 1,
       paused: false,
@@ -49,6 +60,8 @@ export default {
     };
   },
   mounted() {
+    this.author = this.$route.params.name;
+    this.url = `https://slides-cdn.magichc7.com/v3/pdf/${this.author}.pdf`;
     document.onkeydown = (e) => {
       // 键盘按键判断:左箭头-37;上箭头-38；右箭头-39;下箭头-40
       if (e.code === 'ArrowLeft') {
@@ -98,7 +111,7 @@ export default {
     playBarrage() {
       this.$axios.get('https://slides.magichc7.com/barrage-api/get', {
         params: {
-          channel: 'slides3',
+          channel: this.author,
           index: this.index,
         },
       }).then((res) => {
@@ -111,7 +124,7 @@ export default {
     },
     cleanBarrage() {
       const formData = new FormData();
-      formData.append('channel', 'slides3');
+      formData.append('channel', this.author);
       this.$axios.post('https://slides.magichc7.com/barrage-api/clean', formData).then(() => {
         this.message = '';
         this.$message({

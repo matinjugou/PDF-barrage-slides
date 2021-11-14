@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/3',
+  publicPath: '/v3',
 };
