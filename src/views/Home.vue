@@ -32,7 +32,13 @@
       </template>
     </vue-danmaku>
     <div style="z-index: 3;position:absolute;width: 100%;bottom: 20px">
-      <span>当前演讲人是：{{ author }}，请访问：https://slides-cdn.magichc7.com/v3/#/sender/{{ author }}发送弹幕</span>
+      <span>当前演讲人是：{{ author }}，请访问：<a
+        target="_blank"
+        :href="`https://slides-cdn.magichc7.com/v3/#/sender/${author}`"
+      >
+        https://slides-cdn.magichc7.com/v3/#/sender/{{ author }}
+      </a>发送弹幕
+      </span>
     </div>
   </div>
 </template>
