@@ -14,11 +14,15 @@ def helloWorld():
 def send_barrage():
     channel = request.form.get('channel', '')
     message = request.form.get('message', '')
+    color = request.form.get('color', '')
     if barrage_pools.get(channel, None) is None:
         barrage_pools[channel] = []
-    barrage_pools[channel].append(message)
+    barrage_pools[channel].append({
+        'message': message,
+        'color': color,
+    })
     return make_response(jsonify({'message': f"Add message to channel: {channel}"}))
-    
+
 
 @app.route("/clean", methods=['POST'])
 def clean_barrage():
